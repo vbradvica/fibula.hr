@@ -8,12 +8,12 @@ import {
   Grid,
   Header,
   Icon,
-  Embed
+  Embed,
 } from "semantic-ui-react";
 
 import ContactForm from "../components/ContactForm/ContactForm";
 
-const GOOGLE_MAPS_KEY = process.env.GATSBY_SITE_GOOGLE_MAPS_KEY;
+const GATSBY_SITE_MAPS_KEY = process.env.SITE_MAPS_KEY;
 
 const IndexPage = (props: LayoutProps) => (
   <div>
@@ -71,7 +71,7 @@ const IndexPage = (props: LayoutProps) => (
               <Embed
                 aspectRatio="4:3"
                 active
-                url={`https://www.google.com/maps/embed/v1/place?key=${GOOGLE_MAPS_KEY}&q=Fibula%20d.o.o.&zoom=14`}
+                url={`https://www.google.com/maps/embed/v1/place?key=${GATSBY_SITE_MAPS_KEY}&q=Fibula%20d.o.o.&zoom=14`}
               />
             </Grid.Column>
           </Grid.Row>
