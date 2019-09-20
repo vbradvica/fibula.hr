@@ -13,7 +13,7 @@ import {
 
 import ContactForm from "../components/ContactForm/ContactForm";
 
-const GATSBY_SITE_MAPS_KEY = process.env.SITE_MAPS_KEY;
+const GATSBY_SITE_MAPS_KEY = process.env.GATSBY_SITE_MAPS_KEY;
 
 const IndexPage = (props: LayoutProps) => (
   <div>
