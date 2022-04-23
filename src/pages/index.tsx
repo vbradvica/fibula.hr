@@ -15,8 +15,8 @@ import {
   Thead,
   Tbody,
   useBreakpointValue,
-  Icon,
 } from "@chakra-ui/react";
+import { Helmet } from "react-helmet";
 import { PhoneIcon, EmailIcon, InfoIcon } from "@chakra-ui/icons";
 import { ContactForm } from "../components/ContactForm";
 
@@ -30,6 +30,16 @@ const IndexPage = () => {
 
   return (
     <Flex direction="column" align="stretch">
+      <>
+        {/* @ts-ignore */}
+        <Helmet>
+          <meta charSet="utf-8" />
+          <title>Fibula d.o.o. | CNC obrada metala i plastike, glodanje, tokarenje</title>
+          <meta name="description" content="CNC obrada metala i plastike, CNC glodanje, CNC tokarenje, 3D printanje. Visoka preciznost obrade. Kontaktirajte nas" />
+          <meta name="robots" content="index, follow" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        </Helmet>
+      </>
       <Box
         bgColor="blue.700"
         display="flex"
