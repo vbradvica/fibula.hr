@@ -84,7 +84,7 @@ export default class Contact extends React.Component<
     e: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { constraints } = this.state;
-    const formInput = e.target as HTMLInputElement;
+    const formInput = e.target as HTMLInputElement | HTMLTextAreaElement;
     const state = { ...this.state, [formInput.name]: formInput.value };
     const errors = validate(state, constraints, { fullMessages: false });
     this.setState({ ...state, errors, isValid: isEmpty(errors) });
@@ -200,11 +200,11 @@ export default class Contact extends React.Component<
               name="contactMeByFax"
               error={
                 (visited.contactMeByFax || showValidation) &&
-                errors.contactMeByFax
+                errors?.contactMeByFax
               }
               isInvalid={Boolean(
                 (visited.contactMeByFax || showValidation) &&
-                  errors.contactMeByFax
+                  errors?.contactMeByFax
               )}
               type="input"
               placeholder="Fax Number"
@@ -215,10 +215,10 @@ export default class Contact extends React.Component<
             />
             {Boolean(
               (visited.contactMeByFax || showValidation) &&
-                errors.contactMeByFax
+                errors?.contactMeByFax
             ) && (
               <FormHelperText color="red.500">
-                {errors.contactMeByFax?.[0]}
+                {errors?.contactMeByFax?.[0]}
               </FormHelperText>
             )}
           </FormControl>
@@ -229,9 +229,9 @@ export default class Contact extends React.Component<
             <Input
               color="whiteAlpha.700"
               name="name"
-              error={(visited.name || showValidation) && errors.name}
+              error={(visited.name || showValidation) && errors?.name}
               isInvalid={Boolean(
-                (visited.name || showValidation) && errors.name
+                (visited.name || showValidation) && errors?.name
               )}
               type="input"
               placeholder="Ime / naziv firme"
@@ -240,9 +240,9 @@ export default class Contact extends React.Component<
               value={name}
               isRequired
             />
-            {Boolean((visited.name || showValidation) && errors.name) && (
+            {Boolean((visited.name || showValidation) && errors?.name) && (
               <FormHelperText color="red.500">
-                {errors.name?.[0]}
+                {errors?.name?.[0]}
               </FormHelperText>
             )}
           </FormControl>
@@ -251,9 +251,9 @@ export default class Contact extends React.Component<
             <Input
               color="whiteAlpha.700"
               name="email"
-              error={(visited.email || showValidation) && errors.email}
+              error={(visited.email || showValidation) && errors?.email}
               isInvalid={Boolean(
-                (visited.email || showValidation) && errors.email
+                (visited.email || showValidation) && errors?.email
               )}
               type="email"
               placeholder="ime@email.hr"
@@ -262,9 +262,9 @@ export default class Contact extends React.Component<
               value={email}
               isRequired
             />
-            {Boolean((visited.email || showValidation) && errors.email) && (
+            {Boolean((visited.email || showValidation) && errors?.email) && (
               <FormHelperText color="red.500">
-                {errors.email?.[0]}
+                {errors?.email?.[0]}
               </FormHelperText>
             )}
           </FormControl>
@@ -273,9 +273,9 @@ export default class Contact extends React.Component<
             <Input
               color="whiteAlpha.700"
               name="subject"
-              error={(visited.subject || showValidation) && errors.subject}
+              error={(visited.subject || showValidation) && errors?.subject}
               isInvalid={Boolean(
-                (visited.subject || showValidation) && errors.subject
+                (visited.subject || showValidation) && errors?.subject
               )}
               type="text"
               placeholder="Naslov"
@@ -284,9 +284,11 @@ export default class Contact extends React.Component<
               value={subject}
               isRequired
             />
-            {Boolean((visited.subject || showValidation) && errors.subject) && (
+            {Boolean(
+              (visited.subject || showValidation) && errors?.subject
+            ) && (
               <FormHelperText color="red.500">
-                {errors.subject?.[0]}
+                {errors?.subject?.[0]}
               </FormHelperText>
             )}
           </FormControl>
@@ -296,9 +298,9 @@ export default class Contact extends React.Component<
               color="whiteAlpha.700"
               name="message"
               rows={5}
-              error={(visited.message || showValidation) && errors.message}
+              error={(visited.message || showValidation) && errors?.message}
               isInvalid={Boolean(
-                (visited.message || showValidation) && errors.message
+                (visited.message || showValidation) && errors?.message
               )}
               type="text"
               placeholder="Vaša poruka"
@@ -307,9 +309,11 @@ export default class Contact extends React.Component<
               value={message}
               isRequired
             />
-            {Boolean((visited.message || showValidation) && errors.message) && (
+            {Boolean(
+              (visited.message || showValidation) && errors?.message
+            ) && (
               <FormHelperText color="red.500">
-                {errors.message?.[0]}
+                {errors?.message?.[0]}
               </FormHelperText>
             )}
           </FormControl>
