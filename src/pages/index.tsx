@@ -420,7 +420,7 @@ const IndexPage = () => {
       >
         <Box as={GridItem} colSpan={2} textAlign="start">
           <Heading size="md">
-            FIBULA, d.o.o.
+            FIBULA, d.o.o. 
             <small>za proizvodnju, trgovinu i usluge</small>
           </Heading>
         </Box>
@@ -456,7 +456,7 @@ const IndexPage = () => {
           </Box>
         </SimpleGrid>
         <Box as={GridItem} colSpan={2} textAlign="center">
-          2019 © Fibula d.o.o.
+          {(new Date()).getFullYear()} © Fibula d.o.o.
         </Box>
       </Box>
     </Flex>
