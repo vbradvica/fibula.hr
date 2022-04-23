@@ -1,9 +1,8 @@
-import * as React from "react";
-import { Provider } from "react-redux";
+import React from "react"
+import { ChakraProvider, CSSReset, theme } from "@chakra-ui/react"
 
-import { store } from "./src/store";
-
-export const wrapRootElement = ({ element }) =>
-    <Provider store={store} >
-      {element}
-    </Provider>;
+export const wrapRootElement = ({ element }) => (
+  <ChakraProvider theme={theme} resetCSS>
+    {element}
+  </ChakraProvider>
+)

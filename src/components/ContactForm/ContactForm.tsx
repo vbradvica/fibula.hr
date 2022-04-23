@@ -1,16 +1,26 @@
 import * as React from "react";
-import classnames from "classnames";
 import { default as ReCAPTCHA } from "react-google-recaptcha";
 import * as validate from "validate.js";
 import { isEmpty } from "lodash";
-import { Grid, Header, Button, Container, Icon } from "semantic-ui-react";
+import {
+  Heading,
+  Button,
+  Icon,
+  GridItem,
+  SimpleGrid,
+  FormControl,
+  Input,
+  FormLabel,
+  Textarea,
+  Box,
+} from "@chakra-ui/react";
 import trackEvent from "../../analytics/trackEvent";
 
 const RECAPTCHA_KEY = process.env.GATSBY_SITE_RECAPTCHA_KEY;
 
 function encode(data: any) {
   return Object.keys(data)
-    .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`)
+    .map((key) => `${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`)
     .join("&");
 }
 
@@ -38,22 +48,25 @@ export default class Contact extends React.Component<
     constraints: {
       email: {
         email: {
-          message: "Unesena vrijednost nije validna email adresa."
+          message: "Unesena vrijednost nije validna email adresa.",
         },
         presence: {
           allowEmpty: false,
-          message: "Email je obavezno polje."
-        }
+          message: "Email je obavezno polje.",
+        },
       },
       message: {
-        presence: { allowEmpty: false, message: "Poruka je obavezno polje." }
+        presence: { allowEmpty: false, message: "Poruka je obavezno polje." },
       },
       name: {
-        presence: { allowEmpty: false, message: "Ime/Naziv je obavezno polje." }
+        presence: {
+          allowEmpty: false,
+          message: "Ime/Naziv je obavezno polje.",
+        },
       },
       subject: {
-        presence: { allowEmpty: false, message: "Naslov je obavezno polje." }
-      }
+        presence: { allowEmpty: false, message: "Naslov je obavezno polje." },
+      },
     },
     contactMeByFax: "",
     email: "",
@@ -65,7 +78,7 @@ export default class Contact extends React.Component<
     showValidation: false,
     subject: "",
     thanksVisible: false,
-    visited: {}
+    visited: {},
   };
 
   handleChange = (
@@ -87,8 +100,8 @@ export default class Contact extends React.Component<
       ...this.state,
       visited: {
         ...visited,
-        [formInput.name]: true
-      }
+        [formInput.name]: true,
+      },
     };
     const errors = validate(state, constraints, { fullMessages: false });
     this.setState({ ...state, errors, isValid: isEmpty(errors) });
@@ -108,7 +121,7 @@ export default class Contact extends React.Component<
       ...state,
       errors,
       isValid: isEmpty(errors),
-      showValidation: true
+      showValidation: true,
     });
 
     if (!isEmpty(errors)) {
@@ -124,12 +137,12 @@ export default class Contact extends React.Component<
         "g-recaptcha-response": this.state.gRecaptchaResponse,
         message: this.state.message,
         name: this.state.name,
-        subject: this.state.subject
+        subject: this.state.subject,
       }),
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      method: "POST"
+      method: "POST",
     })
-      .then(r => {
+      .then((r) => {
         const { name, message } = this.state;
         trackEvent("Contact Form", "Submit", name, message);
         this.setState({
@@ -140,10 +153,10 @@ export default class Contact extends React.Component<
           name: "",
           subject: "",
           thanksVisible: true,
-          visited: {}
+          visited: {},
         });
       })
-      .catch(err => {
+      .catch((err) => {
         return;
       });
   };
@@ -164,227 +177,155 @@ export default class Contact extends React.Component<
       showValidation,
       subject,
       thanksVisible,
-      visited
+      visited,
     } = this.state;
 
     return (
-      <Container>
-        <Grid stackable centered doubling columns="2">
-          <Grid.Row>
-            <Grid.Column>
-              <Header as="h2">Kontaktirajte nas:</Header>
-            </Grid.Column>
-          </Grid.Row>
-          <Grid.Row>
-            <Grid.Column>
-              <form
-                className="ui form contactForm"
-                data-netlify-honeypot="contactMeByFax"
-                data-netlify-recaptcha="true"
-                data-netlify="true"
-                method="POST"
-                name="contact"
-                onSubmit={this.handleSubmit}
-                noValidate
-              >
-                {/* The `form-name` hidden field is required to support form submissions without JavaScript */}
-                <input type="hidden" name="form-name" value="contact" />
-                <div className="required field" style={{ display: "none" }}>
-                  <label>Odgovorite faksom:</label>
-                  <div className="ui input">
-                    <input
-                      type="input"
-                      name="contactMeByFax"
-                      placeholder="Fax Number"
-                      onBlur={this.handleBlur}
-                      onChange={this.handleChange}
-                      value={contactMeByFax}
-                      required
-                    />
-                  </div>
-                </div>
-                <div
-                  className={classnames({
-                    error: Boolean(
-                      (visited.name || showValidation) && errors && errors.name
-                    ),
-                    field: true,
-                    required: true
-                  })}
-                >
-                  <label>Ime i prezime / Naziv firme</label>
-                  <div className="ui input" style={{ flexDirection: "column" }}>
-                    <input
-                      type="text"
-                      name="name"
-                      placeholder="Ime"
-                      onBlur={this.handleBlur}
-                      onChange={this.handleChange}
-                      value={name}
-                      required
-                    />
-                    <div className="validation" style={{ marginTop: "0.5rem" }}>
-                      {(visited.name || showValidation) &&
-                        errors &&
-                        errors.name &&
-                        errors.name[0]}
-                    </div>
-                  </div>
-                </div>
-                <div
-                  className={classnames({
-                    error: Boolean(
-                      (visited.email || showValidation) &&
-                        errors &&
-                        errors.email
-                    ),
-                    field: true,
-                    required: true
-                  })}
-                >
-                  <label>Email</label>
-                  <div className="ui input" style={{ flexDirection: "column" }}>
-                    <input
-                      type="email"
-                      name="email"
-                      placeholder="ime@email.hr"
-                      onBlur={this.handleBlur}
-                      onChange={this.handleChange}
-                      value={email}
-                      required
-                    />
-                    <div className="validation" style={{ marginTop: "0.5rem" }}>
-                      {(visited.email || showValidation) &&
-                        errors &&
-                        errors.email &&
-                        errors.email[0]}
-                    </div>
-                  </div>
-                </div>
-                <div
-                  className={classnames({
-                    error: Boolean(
-                      (visited.subject || showValidation) &&
-                        errors &&
-                        errors.subject
-                    ),
-                    field: true,
-                    required: true
-                  })}
-                >
-                  <label>Naslov</label>
-                  <div className="ui input" style={{ flexDirection: "column" }}>
-                    <input
-                      type="text"
-                      name="subject"
-                      placeholder="Naslov"
-                      onBlur={this.handleBlur}
-                      onChange={this.handleChange}
-                      value={subject}
-                      required
-                    />
-                    <div className="validation" style={{ marginTop: "0.5rem" }}>
-                      {(visited.subject || showValidation) &&
-                        errors &&
-                        errors.subject &&
-                        errors.subject[0]}
-                    </div>
-                  </div>
-                </div>
-                <div
-                  className={classnames({
-                    error: Boolean(
-                      (visited.message || showValidation) &&
-                        errors &&
-                        errors.message
-                    ),
-                    field: true,
-                    required: true
-                  })}
-                >
-                  <label>Poruka</label>
-                  <div className="ui input" style={{ flexDirection: "column" }}>
-                    <textarea
-                      rows={5}
-                      name="message"
-                      placeholder="Vaša poruka"
-                      onBlur={this.handleBlur}
-                      onChange={this.handleChange}
-                      value={message}
-                      required
-                    />
-                    <div className="validation" style={{ marginTop: "0.5rem" }}>
-                      {(visited.message || showValidation) &&
-                        errors &&
-                        errors.message &&
-                        errors.message[0]}
-                    </div>
-                  </div>
-                </div>
-                <div className="field">
-                  <ReCAPTCHA
-                    ref="recaptcha"
-                    sitekey={RECAPTCHA_KEY}
-                    onChange={this.handleRecaptcha}
-                  />
-                </div>
-                <Button
-                  disabled={!gRecaptchaResponse || !isValid}
-                  primary
-                  type="submit"
-                >
-                  Pošalji
-                </Button>
-              </form>
-            </Grid.Column>
-          </Grid.Row>
-          {thanksVisible && (
-            <div
-              style={{
-                alignItems: "center",
-                backgroundColor: "white",
-                bottom: 0,
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                left: 0,
-                position: "absolute",
-                right: 0,
-                textAlign: "left",
-                top: 0
-              }}
+      <>
+        <SimpleGrid columns={2}>
+          <GridItem colSpan={2}>
+            <Heading size="md">Kontaktirajte nas:</Heading>
+          </GridItem>
+          <GridItem>
+            <form
+              className="ui form contactForm"
+              data-netlify-honeypot="contactMeByFax"
+              data-netlify-recaptcha="true"
+              data-netlify="true"
+              method="POST"
+              name="contact"
+              onSubmit={this.handleSubmit}
+              noValidate
             >
-              <div style={{ maxWidth: 500 }}>
-                <Button
-                  style={{
-                    float: "right",
-                    marginTop: "calc(2rem - .14285714em)"
-                  }}
-                  color="black"
-                  inverted
-                  icon
-                  basic
-                  onClick={this.toggleThanks}
-                >
-                  <Icon color="black" name="x" />
-                </Button>
-                <Header as="h2">Thank you for getting in touch!</Header>
-                <p>
-                  We appreciate you contacting us. One of our team members will
-                  be getting back to you shortly.
-                </p>
-                <p>
-                  While we do our best to answer your queries quickly, it may
-                  take a day or two to receive a response from us during peak
-                  days.
-                </p>
-                <p>Thanks in advance for your patience.</p>
-                <p>Have a great day!</p>
+              {/* The `form-name` hidden field is required to support form submissions without JavaScript */}
+              <Input type="hidden" name="form-name" value="contact" />
+              <FormControl id="contactMeByFax" isRequired display="none">
+                <FormLabel>Odgovorite faksom</FormLabel>
+                <Input
+                  error={
+                    (visited.contactMeByFax || showValidation) &&
+                    errors.contactMeByFax
+                  }
+                  isInvalid={Boolean(
+                    (visited.contactMeByFax || showValidation) &&
+                      errors.contactMeByFax
+                  )}
+                  type="input"
+                  placeholder="Fax Number"
+                  onBlur={this.handleBlur}
+                  onChange={this.handleChange}
+                  value={contactMeByFax}
+                  isRequired
+                />
+              </FormControl>
+              <FormControl id="name" isRequired>
+                <FormLabel>Ime i prezime / Naziv firme</FormLabel>
+                <Input
+                  error={(visited.name || showValidation) && errors.name}
+                  isInvalid={Boolean(
+                    (visited.name || showValidation) && errors.name
+                  )}
+                  type="input"
+                  placeholder="Ime / naziv firme"
+                  onBlur={this.handleBlur}
+                  onChange={this.handleChange}
+                  value={name}
+                  isRequired
+                />
+              </FormControl>
+              <FormControl id="email" isRequired>
+                <FormLabel>Email</FormLabel>
+                <Input
+                  error={(visited.email || showValidation) && errors.email}
+                  isInvalid={Boolean(
+                    (visited.email || showValidation) && errors.email
+                  )}
+                  type="email"
+                  placeholder="ime@email.hr"
+                  onBlur={this.handleBlur}
+                  onChange={this.handleChange}
+                  value={email}
+                  isRequired
+                />
+              </FormControl>
+              <FormControl id="subject" isRequired>
+                <FormLabel>Naslov</FormLabel>
+                <Input
+                  error={(visited.subject || showValidation) && errors.subject}
+                  isInvalid={Boolean(
+                    (visited.subject || showValidation) && errors.subject
+                  )}
+                  type="text"
+                  placeholder="Naslov"
+                  onBlur={this.handleBlur}
+                  onChange={this.handleChange}
+                  value={subject}
+                  isRequired
+                />
+              </FormControl>
+              <FormControl id="message" isRequired>
+                <FormLabel>Poruka</FormLabel>
+                <Textarea
+                  rows={5}
+                  error={(visited.message || showValidation) && errors.message}
+                  isInvalid={Boolean(
+                    (visited.message || showValidation) && errors.message
+                  )}
+                  type="text"
+                  placeholder="Vaša poruka"
+                  onBlur={this.handleBlur}
+                  onChange={this.handleChange}
+                  value={message}
+                  isRequired
+                />
+              </FormControl>
+              <div className="field">
+                <ReCAPTCHA
+                  ref="recaptcha"
+                  sitekey={RECAPTCHA_KEY}
+                  onChange={this.handleRecaptcha}
+                />
               </div>
-            </div>
-          )}
-        </Grid>
-      </Container>
+              <Button
+                disabled={!gRecaptchaResponse || !isValid}
+                primary
+                type="submit"
+              >
+                Pošalji
+              </Button>
+            </form>
+          </GridItem>
+        </SimpleGrid>
+        {thanksVisible && (
+          <Box
+            alignItems="center"
+            bgColor="white"
+            bottom={0}
+            display="flex"
+            flexDir="column"
+            justifyContent="center"
+            left={0}
+            position="absolute"
+            right={0}
+            textAlign="left"
+            top={0}
+          >
+            <Box maxW={500}>
+              <Button
+                float="right"
+                marginTop="calc(2rem - .14285714em)"
+                color="black"
+                onClick={this.toggleThanks}
+              >
+                <Icon color="black" name="x" />
+              </Button>
+              <Heading size="md">Hvala na javljanju.</Heading>
+              <p>Odgovorit ćemo na vaš upit u najkraćem mogućem roku.</p>
+              <p>Hvala Vam na strpljenju.</p>
+            </Box>
+          </Box>
+        )}
+      </>
     );
   }
 }
