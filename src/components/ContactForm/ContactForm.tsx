@@ -11,6 +11,7 @@ import {
   FormLabel,
   Textarea,
   Box,
+  FormHelperText,
 } from "@chakra-ui/react";
 import trackEvent from "../../analytics/trackEvent";
 
@@ -192,7 +193,7 @@ export default class Contact extends React.Component<
         >
           {/* The `form-name` hidden field is required to support form submissions without JavaScript */}
           <Input type="hidden" name="form-name" value="contact" />
-          <FormControl id="contactMeByFax" isRequired display="none">
+          <FormControl mt={3} id="contactMeByFax" isRequired display="none">
             <FormLabel>Odgovorite faksom</FormLabel>
             <Input
               color="whiteAlpha.700"
@@ -212,8 +213,16 @@ export default class Contact extends React.Component<
               value={contactMeByFax}
               isRequired
             />
+            {Boolean(
+              (visited.contactMeByFax || showValidation) &&
+                errors.contactMeByFax
+            ) && (
+              <FormHelperText color="red.500">
+                {errors.contactMeByFax?.[0]}
+              </FormHelperText>
+            )}
           </FormControl>
-          <FormControl id="name" isRequired>
+          <FormControl mt={3} id="name" isRequired>
             <FormLabel style={{ color: "#FFFFFFAA" }}>
               Ime i prezime / Naziv firme
             </FormLabel>
@@ -231,8 +240,13 @@ export default class Contact extends React.Component<
               value={name}
               isRequired
             />
+            {Boolean((visited.name || showValidation) && errors.name) && (
+              <FormHelperText color="red.500">
+                {errors.name?.[0]}
+              </FormHelperText>
+            )}
           </FormControl>
-          <FormControl id="email" isRequired>
+          <FormControl mt={3} id="email" isRequired>
             <FormLabel style={{ color: "#FFFFFFAA" }}>Email</FormLabel>
             <Input
               color="whiteAlpha.700"
@@ -248,8 +262,13 @@ export default class Contact extends React.Component<
               value={email}
               isRequired
             />
+            {Boolean((visited.email || showValidation) && errors.email) && (
+              <FormHelperText color="red.500">
+                {errors.email?.[0]}
+              </FormHelperText>
+            )}
           </FormControl>
-          <FormControl id="subject" isRequired>
+          <FormControl mt={3} id="subject" isRequired>
             <FormLabel style={{ color: "#FFFFFFAA" }}>Naslov</FormLabel>
             <Input
               color="whiteAlpha.700"
@@ -265,8 +284,13 @@ export default class Contact extends React.Component<
               value={subject}
               isRequired
             />
+            {Boolean((visited.subject || showValidation) && errors.subject) && (
+              <FormHelperText color="red.500">
+                {errors.subject?.[0]}
+              </FormHelperText>
+            )}
           </FormControl>
-          <FormControl id="message" isRequired>
+          <FormControl mt={3} id="message" isRequired>
             <FormLabel style={{ color: "#FFFFFFAA" }}>Poruka</FormLabel>
             <Textarea
               color="whiteAlpha.700"
@@ -283,15 +307,21 @@ export default class Contact extends React.Component<
               value={message}
               isRequired
             />
+            {Boolean((visited.message || showValidation) && errors.message) && (
+              <FormHelperText color="red.500">
+                {errors.message?.[0]}
+              </FormHelperText>
+            )}
           </FormControl>
-          <div className="field">
+          <Box mt={3}>
             <ReCAPTCHA
               ref="recaptcha"
               sitekey={RECAPTCHA_KEY}
               onChange={this.handleRecaptcha}
             />
-          </div>
+          </Box>
           <Button
+            mt={3}
             disabled={!gRecaptchaResponse || !isValid}
             variant="solid"
             colorScheme="whiteAlpha"
