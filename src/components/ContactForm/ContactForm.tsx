@@ -6,8 +6,6 @@ import {
   Heading,
   Button,
   Icon,
-  GridItem,
-  SimpleGrid,
   FormControl,
   Input,
   FormLabel,
@@ -182,120 +180,126 @@ export default class Contact extends React.Component<
 
     return (
       <>
-        <SimpleGrid columns={2}>
-          <GridItem colSpan={2}>
-            <Heading size="md">Kontaktirajte nas:</Heading>
-          </GridItem>
-          <GridItem>
-            <form
-              className="ui form contactForm"
-              data-netlify-honeypot="contactMeByFax"
-              data-netlify-recaptcha="true"
-              data-netlify="true"
-              method="POST"
-              name="contact"
-              onSubmit={this.handleSubmit}
-              noValidate
-            >
-              {/* The `form-name` hidden field is required to support form submissions without JavaScript */}
-              <Input type="hidden" name="form-name" value="contact" />
-              <FormControl id="contactMeByFax" isRequired display="none">
-                <FormLabel>Odgovorite faksom</FormLabel>
-                <Input
-                  error={
-                    (visited.contactMeByFax || showValidation) &&
-                    errors.contactMeByFax
-                  }
-                  isInvalid={Boolean(
-                    (visited.contactMeByFax || showValidation) &&
-                      errors.contactMeByFax
-                  )}
-                  type="input"
-                  placeholder="Fax Number"
-                  onBlur={this.handleBlur}
-                  onChange={this.handleChange}
-                  value={contactMeByFax}
-                  isRequired
-                />
-              </FormControl>
-              <FormControl id="name" isRequired>
-                <FormLabel>Ime i prezime / Naziv firme</FormLabel>
-                <Input
-                  error={(visited.name || showValidation) && errors.name}
-                  isInvalid={Boolean(
-                    (visited.name || showValidation) && errors.name
-                  )}
-                  type="input"
-                  placeholder="Ime / naziv firme"
-                  onBlur={this.handleBlur}
-                  onChange={this.handleChange}
-                  value={name}
-                  isRequired
-                />
-              </FormControl>
-              <FormControl id="email" isRequired>
-                <FormLabel>Email</FormLabel>
-                <Input
-                  error={(visited.email || showValidation) && errors.email}
-                  isInvalid={Boolean(
-                    (visited.email || showValidation) && errors.email
-                  )}
-                  type="email"
-                  placeholder="ime@email.hr"
-                  onBlur={this.handleBlur}
-                  onChange={this.handleChange}
-                  value={email}
-                  isRequired
-                />
-              </FormControl>
-              <FormControl id="subject" isRequired>
-                <FormLabel>Naslov</FormLabel>
-                <Input
-                  error={(visited.subject || showValidation) && errors.subject}
-                  isInvalid={Boolean(
-                    (visited.subject || showValidation) && errors.subject
-                  )}
-                  type="text"
-                  placeholder="Naslov"
-                  onBlur={this.handleBlur}
-                  onChange={this.handleChange}
-                  value={subject}
-                  isRequired
-                />
-              </FormControl>
-              <FormControl id="message" isRequired>
-                <FormLabel>Poruka</FormLabel>
-                <Textarea
-                  rows={5}
-                  error={(visited.message || showValidation) && errors.message}
-                  isInvalid={Boolean(
-                    (visited.message || showValidation) && errors.message
-                  )}
-                  type="text"
-                  placeholder="Vaša poruka"
-                  onBlur={this.handleBlur}
-                  onChange={this.handleChange}
-                  value={message}
-                  isRequired
-                />
-              </FormControl>
-              <div className="field">
-                <ReCAPTCHA
-                  ref="recaptcha"
-                  sitekey={RECAPTCHA_KEY}
-                  onChange={this.handleRecaptcha}
-                />
-              </div>
-              <Button
-                disabled={!gRecaptchaResponse || !isValid}
-                primary
-                type="submit"
-              >
-                Pošalji
-              </Button>
-            </form>
-          </GridItem>
-        </SimpleGrid>
+        <form
+          className="ui form contactForm"
+          data-netlify-honeypot="contactMeByFax"
+          data-netlify-recaptcha="true"
+          data-netlify="true"
+          method="POST"
+          name="contact"
+          onSubmit={this.handleSubmit}
+          noValidate
+        >
+          {/* The `form-name` hidden field is required to support form submissions without JavaScript */}
+          <Input type="hidden" name="form-name" value="contact" />
+          <FormControl id="contactMeByFax" isRequired display="none">
+            <FormLabel>Odgovorite faksom</FormLabel>
+            <Input
+              color="whiteAlpha.700"
+              name="contactMeByFax"
+              error={
+                (visited.contactMeByFax || showValidation) &&
+                errors.contactMeByFax
+              }
+              isInvalid={Boolean(
+                (visited.contactMeByFax || showValidation) &&
+                  errors.contactMeByFax
+              )}
+              type="input"
+              placeholder="Fax Number"
+              onBlur={this.handleBlur}
+              onChange={this.handleChange}
+              value={contactMeByFax}
+              isRequired
+            />
+          </FormControl>
+          <FormControl id="name" isRequired>
+            <FormLabel style={{ color: "#FFFFFFAA" }}>
+              Ime i prezime / Naziv firme
+            </FormLabel>
+            <Input
+              color="whiteAlpha.700"
+              name="name"
+              error={(visited.name || showValidation) && errors.name}
+              isInvalid={Boolean(
+                (visited.name || showValidation) && errors.name
+              )}
+              type="input"
+              placeholder="Ime / naziv firme"
+              onBlur={this.handleBlur}
+              onChange={this.handleChange}
+              value={name}
+              isRequired
+            />
+          </FormControl>
+          <FormControl id="email" isRequired>
+            <FormLabel style={{ color: "#FFFFFFAA" }}>Email</FormLabel>
+            <Input
+              color="whiteAlpha.700"
+              name="email"
+              error={(visited.email || showValidation) && errors.email}
+              isInvalid={Boolean(
+                (visited.email || showValidation) && errors.email
+              )}
+              type="email"
+              placeholder="ime@email.hr"
+              onBlur={this.handleBlur}
+              onChange={this.handleChange}
+              value={email}
+              isRequired
+            />
+          </FormControl>
+          <FormControl id="subject" isRequired>
+            <FormLabel style={{ color: "#FFFFFFAA" }}>Naslov</FormLabel>
+            <Input
+              color="whiteAlpha.700"
+              name="subject"
+              error={(visited.subject || showValidation) && errors.subject}
+              isInvalid={Boolean(
+                (visited.subject || showValidation) && errors.subject
+              )}
+              type="text"
+              placeholder="Naslov"
+              onBlur={this.handleBlur}
+              onChange={this.handleChange}
+              value={subject}
+              isRequired
+            />
+          </FormControl>
+          <FormControl id="message" isRequired>
+            <FormLabel style={{ color: "#FFFFFFAA" }}>Poruka</FormLabel>
+            <Textarea
+              color="whiteAlpha.700"
+              name="message"
+              rows={5}
+              error={(visited.message || showValidation) && errors.message}
+              isInvalid={Boolean(
+                (visited.message || showValidation) && errors.message
+              )}
+              type="text"
+              placeholder="Vaša poruka"
+              onBlur={this.handleBlur}
+              onChange={this.handleChange}
+              value={message}
+              isRequired
+            />
+          </FormControl>
+          <div className="field">
+            <ReCAPTCHA
+              ref="recaptcha"
+              sitekey={RECAPTCHA_KEY}
+              onChange={this.handleRecaptcha}
+            />
+          </div>
+          <Button
+            disabled={!gRecaptchaResponse || !isValid}
+            variant="solid"
+            colorScheme="whiteAlpha"
+            type="submit"
+          >
+            Pošalji
+          </Button>
+        </form>
         {thanksVisible && (
           <Box
             alignItems="center"

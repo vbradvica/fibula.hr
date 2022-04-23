@@ -58,7 +58,8 @@ const IndexPage = () => {
               Fibula d.o.o.
             </Heading>
             <Heading size="lg" mb={6} color="gray.50">
-              CNC obrada metala i<br/>polimera (plastike)
+              CNC obrada metala i<br />
+              polimera (plastike)
             </Heading>
             <Text fontSize="lg" mb={1} color="gray.50">
               <PhoneIcon />{" "}
@@ -359,7 +360,10 @@ const IndexPage = () => {
                 <Tbody>
                   <Tr>
                     <Td fontWeight="bold">Klasična strojna obrada</Td>
-                    <Td>Glodanje i tokarenje metala i plastike klasičnim strojevima visoke preciznosti</Td>
+                    <Td>
+                      Glodanje i tokarenje metala i plastike klasičnim
+                      strojevima visoke preciznosti
+                    </Td>
                   </Tr>
                   <Tr>
                     <Td fontWeight="bold">Bušenje</Td>
@@ -379,8 +383,20 @@ const IndexPage = () => {
           )}
         </SimpleGrid>
       </Box>
-      <Box colSpan={2}>
-        <ContactForm />
+      <Box display="flex" justifyContent="center" bgColor="blue.700">
+        <Box
+          alignSelf="center"
+          maxW={1024}
+          padding={basePadding}
+          // paddingX={{ base: 6, sm: 0 }}
+          py={10}
+          width="100%"
+        >
+          <Heading color="white" size="lg">
+            Kontaktirajte nas
+          </Heading>
+          <ContactForm />
+        </Box>
       </Box>
       <Box
         bgColor="gray.200"
