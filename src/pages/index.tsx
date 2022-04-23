@@ -379,7 +379,7 @@ const IndexPage = () => {
           )}
         </SimpleGrid>
       </Box>
-      <Box>
+      <Box colSpan={2}>
         <ContactForm />
       </Box>
       <Box
