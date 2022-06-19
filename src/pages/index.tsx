@@ -71,20 +71,10 @@ const IndexPage = () => {
               CNC obrada metala i<br />
               polimera (plastike)
             </Heading>
-            <Text fontSize="lg" mb={1} color="gray.50">
-              <PhoneIcon />{" "}
-              <Link
-                href="tel:+38513496912"
-                textDecor={{ base: "underline", md: "none" }}
-                isExternal
-              >
-                (+385) 1 349 69 12
-              </Link>
-            </Text>
             <Text fontSize="lg" mb={6} color="gray.50">
               <PhoneIcon />{" "}
               <Link
-                href="tel:+38513496912"
+                href="tel:+385915458600"
                 textDecor={{ base: "underline", md: "none" }}
                 isExternal
               >
@@ -445,8 +435,6 @@ const IndexPage = () => {
             </address>
           </Box>
           <Box as={GridItem}>
-            <PhoneIcon /> (+385) 1 3496 912
-            <br />
             <EmailIcon /> <a href="mailto:fibula@fibula.hr">fibula@fibula.hr</a>
             <br />
             <PhoneIcon /> (+385) 91 5458 600
