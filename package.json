@@ -29,7 +29,7 @@
     "eslint-config-airbnb-typescript-prettier": "^4.2.0",
     "eslint-plugin-react": "^7.26.1",
     "framer-motion": "^3.10.3",
-    "gatsby": "^3.0.4",
+    "gatsby": "^3.14.0",
     "gatsby-plugin-google-analytics": "^3.0.0",
     "gatsby-plugin-image": "^1.0.1",
     "gatsby-plugin-mdx": "^2.0.1",
